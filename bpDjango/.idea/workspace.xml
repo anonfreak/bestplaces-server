@@ -54,8 +54,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bpDjango/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
+            <state relative-caret-position="612">
+              <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -604,7 +604,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479556533885</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="BESTP-11 Learn about Django&#10;MySQL secret hidden">
+      <created>1479558628048</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1479558628048</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -652,7 +659,8 @@
     <MESSAGE value="BESTP-11 Learn about Django&#10;Added database connection to server" />
     <MESSAGE value="BESTP-11 Learn about Django&#10;First RESTful API works" />
     <MESSAGE value="BESTP-11 Learn about Django&#10;Back to SqLite" />
-    <option name="LAST_COMMIT_MESSAGE" value="BESTP-11 Learn about Django&#10;Back to SqLite" />
+    <MESSAGE value="BESTP-11 Learn about Django&#10;MySQL secret hidden" />
+    <option name="LAST_COMMIT_MESSAGE" value="BESTP-11 Learn about Django&#10;MySQL secret hidden" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1184,8 +1192,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bpDjango/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
+        <state relative-caret-position="612">
+          <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
           <folding />
         </state>
       </provider>
