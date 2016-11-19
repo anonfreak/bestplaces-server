@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'best_places',
         'USER': 'bpServer',
-        'PASSWORD': '',
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
         'HOST': 'mathtap.de',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
