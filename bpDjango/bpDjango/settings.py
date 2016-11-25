@@ -25,7 +25,7 @@ SECRET_KEY = '++ft_nu+u&_4)7*7d#@#m8r3r07lnody9q58mmvpf=ma@r#fk4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1','mathtap.de']
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'best_places',
         'USER': 'bpServer',
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        
+
         'HOST': 'mathtap.de',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
@@ -115,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
