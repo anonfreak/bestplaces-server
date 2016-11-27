@@ -1,80 +1,95 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://mathtap.de:8888/
 
-# bestplaces
+# BestPlaces
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+The BestPlaces-API will be used to communicate between our server and the client
 
-## Questions Collection [/questions]
+# Group User-Management
 
-### List All Questions [GET]
+Everything which has to do with User-Management
+
+# User [/user/{username}]
+
+This will handle User-Management and all relating stuff.
+
+A user has the following standard attributes
+- username
+- email
+- first_name
+- last_name
+- hometown
+
++ Parameters
+  + username: 1 (required, string) - username
+
+## Get User-object [GET]
+
+This will return a user-object (JSON), which contains all informations from the database about the user
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+        {
+            "username":"kolbmarco",
+            "email":"kolbma@gmail.com",
+            "first_name":"Marco",
+            "last_name":"Kolb",
+            "hometown":"Hambrücken"
+        }
 
-### Create a New Question [POST]
+## Update User-object [PUT]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+This will get a User-Object as descriped above and will write it back to the database.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "email":"kolb.marco@live.de",
+            "first_name":"Marco",
+            "last_name":"Kolb",
+            "hometown":"Hambrücken"
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
+
+        {
+          "email":"kolbma@live.de",
+          "first_name":"Marco",
+          "last_name":"Kolb",
+          "hometown":"Hambrücken"
+        }
+
+## Register [/user]
+
+### Register User [POST]
+
+This will register a user to the system and he will be written in the database.
+Additionally to the attributes described for user, you have to provide a password.
+(for testing purposes this will be plain text)
+
++ Request (application/json)
+
+        {
+            "username":"kolbma",
+            "email":"kolbma@gmail.com",
+            "password":"1234",
+            "first_name":"Marco",
+            "last-name":"Kolb",
+            "hometown":"Hambrücken"
+        }
+   
++ Response 200 (application/json)
 
     + Headers
-
-            Location: /questions/2
-
+    
+            Location: /user/kolbma
+    
     + Body
-
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "username":"kolbma",
+                "email":"kolbma@gmail.com",
+                "first_name":"Marco",
+                "last_name":"Kolb",
+                "hometown":"Hambrücken"
             }
