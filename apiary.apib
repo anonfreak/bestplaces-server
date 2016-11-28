@@ -115,11 +115,12 @@ Performs a search by the given parameters on google search api.
 
     + Attributes (array[fullPlace])
 
-## Place Management [/place/{placeId}]
+## Place Management [/place/{placeId}{?userId}]
 
 + Parameters
 
     + placeId (required, string) - Id of the place
+    + userId (optional, string) - username, if you want to get user-specific place information
 
 ### Get place information [GET]
 
@@ -133,21 +134,41 @@ This returns all information about a place, identified by id, provided by
 
 Updating the additional information.
 
++ Request (application/json)
+
+    + Attributes (fullPlace)
+
 + Response 200 (application/json)
 
     + Attributes (fullPlace)
-    
 
+## Visit [/visit{#visitId}]
 
-## User [/place/user]
+A visit is a user-place-date-relationship, when you visit a place.
 
-# Visit [/visit]
++ Fragments
 
-A visit is a user-place-date-relationship, when you visit a place. 
-You are able to provide those informations to a visit:
+    + visitId (required, string) - Id of the visit
 
-- moneySpent (the money you've spent)
-- notes (just some notes on the visit)
+## Get Visit [GET]
+
+Gets one specific visit
+
++ Response 200 (application/json)
+
+    + Attributes (visit)
+
+## Update visit [PUT]
+
+Updating the additional information.
+
++ Request (application/json)
+
+    + Attributes (visit)
+
++ Response 200 (application/json)
+
+    + Attributes (visit)
 
 # Data Structures
 
@@ -158,11 +179,11 @@ You are able to provide those informations to a visit:
 + first_name: Marco (string) - first name of the user
 + last_name: Kolb (string) - last name of the user
 + hometown: Hambrücken (string) - hometown of the user
++ visits: xyz, id2, id3 (array[string]) - visit-id's of the user
 
 ## place (object)
 
 + placeId (string) - id of the place (provided by Google)
-+ additionalJSON (object) - additional Information provided by our users
 
 ## fullPlace (place)
 
@@ -178,9 +199,23 @@ You are able to provide those informations to a visit:
 + phone_number (string, optional) - Phone number (if provided)
 + website (string, optional) - website (if provided)
 + openingHours (openingHours)
++ favorite (boolean, optional) - determines if user marked place as favorite
++ reviewText (string, optional) - review text, if user added one
++ averageStar (number, optional) - the average rating for the place (0-5)
++ review (review, optional) - usernames, which gave a review on the place
+
+## visit (fullPlace)
++ moneySpent (number, optional) - amount of money spent
++ notes (string, optional) - notes for the visit
 
 ## openingHours (object)
 
 + day (number, required) - Day, (from 0 to 6)
 + opens (number, required) - Time written as number (0000-2399)
 + closes (number, optional) - Time written as number. (optional for 24h open)
+
+## review (object)
+
++ stars (number, required) - number 0-4, which rates the place
++ showName (boolean, required) - indicates whether user wants to present his name on the review
++ text (string, optional) - text for the review
