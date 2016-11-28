@@ -13,29 +13,13 @@ Everything which has to do with User-Management
 
 This will handle User-Management and all relating stuff.
 
-A user has the following standard attributes
-- username
-- email
-- first_name
-- last_name
-- hometown
-
-+ Parameters
-  + username: 1 (required, string) - username
-
 ## Get User-object [GET]
 
 This will return a user-object (JSON), which contains all informations from the database about the user
 
 + Response 200 (application/json)
 
-        {
-            "username":"kolbma",
-            "email":"kolbma@gmail.com",
-            "first_name":"Marco",
-            "last_name":"Kolb",
-            "hometown":"Hambrücken"
-        }
+    + Attributes (user)
 
 ## Update User-object [PUT]
 
@@ -44,7 +28,7 @@ This will get a User-Object as descriped above and will write it back to the dat
 + Request (application/json)
 
         {
-            "email":"kolb.marco@live.de",
+            "email":"kolbma@live.de",
             "first_name":"Marco",
             "last_name":"Kolb",
             "hometown":"Hambrücken"
@@ -52,16 +36,29 @@ This will get a User-Object as descriped above and will write it back to the dat
 
 + Response 200 (application/json)
 
-        {
-          "email":"kolbma@live.de",
-          "first_name":"Marco",
-          "last_name":"Kolb",
-          "hometown":"Hambrücken"
-        }
+    + Attributes (user)
 
-## Register [/user]
+# Register [/user]
 
-### Register User [POST]
+## Check username [GET /user{?username}]
+
+This checks if the username already exists in the Database. It's required during sign-in,
+as there shouldn't be redundant Usernames.
+
++ Parameters
+    + username: kolbma (required, string) - Username, which should be checked
+
++ Response 200 (text/plain)
+
+        "True"
+
++ Response 200 (text/plain)
+
+        "False"
+        
+        
+
+## Register User [POST]
 
 This will register a user to the system and he will be written in the database.
 Additionally to the attributes described for user, you have to provide a password.
@@ -93,3 +90,73 @@ Additionally to the attributes described for user, you have to provide a passwor
                 "last_name":"Kolb",
                 "hometown":"Hambrücken"
             }
+
+# Group Places
+
+Our application is called BestPlaces, so let's dive into the actual places-API
+
+# Place [/place]
+
+BestPlaces will user Google Places API to search and get information about the places.
+A blank Place-Object will have those attributes:
+
+## Get place information [GET /place/{placeId}]
+
+This returns all information about a place, identified by id, provided by 
+
++ Parameters
+
+    + placeId (required, string) - Id of the place
+
++ Response 200 (application/json)
+
+    + Attributes (fullPlace)
+
+## Search [/place/search]
+
+## User [/place/user]
+
+# Visit [/visit]
+
+A visit is a user-place-date-relationship, when you visit a place. 
+You are able to provide those informations to a visit:
+
+- moneySpent (the money you've spent)
+- notes (just some notes on the visit)
+
+# Data Structures
+
+## user (object)
+
++ username: kolbma (string) - Username of the user
++ email: kolbma@mathtap.de (string) - email of the user
++ first_name: Marco (string) - first name of the user
++ last_name: Kolb (string) - last name of the user
++ hometown: Hambrücken (string) - hometown of the user
+
+## place (object)
+
++ placeId (string) - id of the place (provided by Google)
++ additionalJSON (object) - additional Information provided by our users
+
+## fullPlace (place)
+
++ name (string, required) - Name
++ geo (object, required) - Geometry of the place
+    + longitude (number) - longitude of the place
+    + latitude (number) - latitude of the place
++ address (object, required) - Contains all informations on the address
+    + street (string) - Street of the place
+    + `house_number` (number) - House number
+    + town (string) - Town
+    + `zip_code` (number) - ZIP Code
++ phone_number (string, optional) - Phone number (if provided)
++ website (string, optional) - website (if provided)
++ openingHours (openingHours)
+
+
+## openingHours (object)
+
++ day (number, required) - Day, (from 0 to 6)
++ opens (number, required) - Time written as number (0000-2399)
++ closes (number, optional) - Time written as number. (optional for 24h open)
