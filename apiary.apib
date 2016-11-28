@@ -100,19 +100,44 @@ Our application is called BestPlaces, so let's dive into the actual places-API
 BestPlaces will user Google Places API to search and get information about the places.
 A blank Place-Object will have those attributes:
 
-## Get place information [GET /place/{placeId}]
+## Search [GET /place/search{?q,long,lat,rad}]
 
-This returns all information about a place, identified by id, provided by 
+Performs a search by the given parameters on google search api.
+
++ Parameters
+
+    + q (string) - Query-string for google search api
+    + long (number) - longitude where place should be searched
+    + lat (number) - latitude where place should be searched
+    + rad (number) - radius around geolocation, where the place should be searched
+
++ Response 200 (application/json)
+
+    + Attributes (array[fullPlace])
+
+## Place Management [/place/{placeId}]
 
 + Parameters
 
     + placeId (required, string) - Id of the place
 
+### Get place information [GET]
+
+This returns all information about a place, identified by id, provided by 
+
 + Response 200 (application/json)
 
     + Attributes (fullPlace)
 
-## Search [/place/search]
+### Update place information [PUT]
+
+Updating the additional information.
+
++ Response 200 (application/json)
+
+    + Attributes (fullPlace)
+    
+
 
 ## User [/place/user]
 
@@ -153,7 +178,6 @@ You are able to provide those informations to a visit:
 + phone_number (string, optional) - Phone number (if provided)
 + website (string, optional) - website (if provided)
 + openingHours (openingHours)
-
 
 ## openingHours (object)
 
