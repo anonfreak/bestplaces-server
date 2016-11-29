@@ -184,7 +184,7 @@ Creates a visit
     
             location: /user/{visitId}
         
-     A+ Attributes (visit)
+    + Attributes (visit)
     
     
 
@@ -201,42 +201,42 @@ Creates a visit
 
 ## place (object)
 
-+ placeId (string) - id of the place (provided by Google)
++ placeId: ChIJd_6tlTcGl0cRVpRkbna3w68 (string) - id of the place (provided by Google)
 
 ## fullPlace (place)
 
-+ name (string, required) - Name
++ name: Pizza Blitz Karlsruhe (string, required) - Name
 + geo (object, required) - Geometry of the place
-    + longitude (number) - longitude of the place
-    + latitude (number) - latitude of the place
+    + longitude: 8.412367999999999 (number) - longitude of the place
+    + latitude: 49.0090918 (number) - latitude of the place
 + address (object, required) - Contains all informations on the address
-    + street (string) - Street of the place
-    + `house_number` (number) - House number
-    + town (string) - Town
-    + `zip_code` (number) - ZIP Code
-+ phone_number (string, optional) - Phone number (if provided)
-+ website (string, optional) - website (if provided)
+    + street: Kaiserstraße (string) - Street of the place
+    + `house_number`: 49 (number) - House number
+    + town: Karlsruhe (string) - Town
+    + `zip_code`: 76131 (number) - ZIP Code
++ phone_number: +49 721 376777 (string, optional) - Phone number (if provided)
++ website: http://www.pizzablitz.info/ (string, optional) - website (if provided)
 + openingHours (array[openingHours])
-+ favorite (boolean, optional) - determines if user marked place as favorite
++ favorite: false (boolean, optional) - determines if user marked place as favorite
 + reviewText (string, optional) - review text, if user added one
-+ averageStar (number, optional) - the average rating for the place (0-5)
++ averageStar: 5 (number, optional) - the average rating for the place (0-5)
 + review (review, optional) - usernames, which gave a review on the place
 
 ## visit (object)
-+ visitId (number, required) - Visit id
-+ placeId (number, required) - Place Id
-+ date (number, required) - The time of the visit (in millis)
-+ moneySpent (number, optional) - amount of money spent
++ visitId: 1 (number, required) - Visit id
++ placeId: ChIJd_6tlTcGl0cRVpRkbna3w68 (string, required) - Place Id
++ date: 1480446791167 (number, required) - The time of the visit (in millis)
++ moneySpent: 10 (number, optional) - amount of money spent
 + notes (string, optional) - notes for the visit
 
 ## openingHours (object)
 
-+ day (number, required) - Day, (from 0 to 6)
-+ opens (number, required) - Time written as number (0000-2399)
-+ closes (number, optional) - Time written as number. (optional for 24h open)
++ day: 0 (number, required) - Day, (from 0 to 6)
++ opens: 1100 (number, required) - Time written as number (0000-2399)
++ closes 2230 (number, optional) - Time written as number. (optional for 24h open)
 
 ## review (object)
 
-+ stars (number, required) - number 0-4, which rates the place
-+ showName (boolean, required) - indicates whether user wants to present his name on the review
-+ text (string, optional) - text for the review
++ stars: 5 (number, required) - number 0-4, which rates the place
++ showName: true (boolean, required) - indicates whether user wants to present his name on the review
++ text: schöner ort (string, optional) - text for the review
