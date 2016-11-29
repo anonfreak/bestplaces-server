@@ -169,6 +169,24 @@ Updating the additional information.
 + Response 200 (application/json)
 
     + Attributes (visit)
+    
+## Create Visit [POST /visit]
+
+Creates a visit
+
++ Request (application/json)
+
+    + Attributes (visit)
+    
++ Response 200 (application/json)
+
+    + Headers
+    
+            location: /user/{visitId}
+        
+     A+ Attributes (visit)
+    
+    
 
 # Data Structures
 
@@ -198,13 +216,16 @@ Updating the additional information.
     + `zip_code` (number) - ZIP Code
 + phone_number (string, optional) - Phone number (if provided)
 + website (string, optional) - website (if provided)
-+ openingHours (openingHours)
++ openingHours (array[openingHours])
 + favorite (boolean, optional) - determines if user marked place as favorite
 + reviewText (string, optional) - review text, if user added one
 + averageStar (number, optional) - the average rating for the place (0-5)
 + review (review, optional) - usernames, which gave a review on the place
 
-## visit (fullPlace)
+## visit (object)
++ visitId (number, required) - Visit id
++ placeId (number, required) - Place Id
++ date (number, required) - The time of the visit (in millis)
 + moneySpent (number, optional) - amount of money spent
 + notes (string, optional) - notes for the visit
 
