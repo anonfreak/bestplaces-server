@@ -77,16 +77,15 @@ WSGI_APPLICATION = 'bpDjango.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'production': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'best_places',
         'USER': 'bpServer',
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-
+        'PASSWORD': 'pfQB7xr3N08tgJnTpYtH',
         'HOST': 'mathtap.de',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
-    'default':{
+    'other':{
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

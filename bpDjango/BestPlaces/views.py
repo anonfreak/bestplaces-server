@@ -1,6 +1,11 @@
 from django.contrib.auth.models import User, Group
+from rest_framework import status
 from rest_framework import viewsets
-from BestPlaces.serializers import UserSerializer, GroupSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer
+
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -11,9 +16,36 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class VisitViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows users to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = VisitSerializer
+
+class PlacesView(APIView):
+    """
+        Retrieve, update or delete a snippet instance.
+        """
+
+    def get_object(self, pk):
+        pass
+
+    def get(self, request, pk, format=None):
+        pass
+
+    def put(self, request, pk, format=None):
+        pass
+
+    def delete(self, request, pk, format=None):
+        pass
+
+class SearchView(APIView):
+    def get(self, request, pk, format=None):
+        pass
+
+    def put(self, request, pk, format=None):
+        pass
+
+    def delete(self, request, pk, format=None):
+        pass
