@@ -150,7 +150,17 @@ A visit is a user-place-date-relationship, when you visit a place.
 
     + visitId (required, string) - Id of the visit
 
-## Get Visit [GET]
+### Get Visists [GET /visit{?username}]
+
++ Parameters
+
+    + username (string, required)
+
++ Response 200 (application/json)
+    
+    + Attributes (array[visit])
+
+## Get one Visit [GET]
 
 Gets one specific visit
 
@@ -217,16 +227,17 @@ Creates a visit
 + phone_number: +49 721 376777 (string, optional) - Phone number (if provided)
 + website: http://www.pizzablitz.info/ (string, optional) - website (if provided)
 + openingHours (array[openingHours])
++ pictures (array[string])
 + favorite: false (boolean, optional) - determines if user marked place as favorite
-+ reviewText (string, optional) - review text, if user added one
 + averageStar: 5 (number, optional) - the average rating for the place (0-5)
-+ review (review, optional) - usernames, which gave a review on the place
++ review_list (review, optional) - usernames, which gave a review on the place
 
 ## visit (object)
-+ visitId: 1 (number, required) - Visit id
-+ placeId: ChIJd_6tlTcGl0cRVpRkbna3w68 (string, required) - Place Id
-+ date: 1480446791167 (number, required) - The time of the visit (in millis)
-+ moneySpent: 10 (number, optional) - amount of money spent
++ visitid: 1 (number, required) - Visit id
++ place: ChIJd_6tlTcGl0cRVpRkbna3w68 (string, required) - Place Id
++ user (string, required) - required user
++ visittime: 1480446791167 (number, required) - The time of the visit (in millis)
++ money: 10 (number, optional) - amount of money spent
 + notes (string, optional) - notes for the visit
 
 ## openingHours (object)
