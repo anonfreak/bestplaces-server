@@ -1,0 +1,253 @@
+FORMAT: 1A
+HOST: http://mathtap.de:8888/
+
+# BestPlaces
+
+The BestPlaces-API will be used to communicate between our server and the client
+
+# Group User-Management
+
+Everything which has to do with User-Management
+
+# User-Actions [/user/{username}]
+
+This will handle User-Management and all relating stuff.
+
+## Get User-object [GET]
+
+This will return a user-object (JSON), which contains all informations from the database about the user
+
++ Response 200 (application/json)
+
+    + Attributes (user)
+
+## Update User-object [PUT]
+
+This will get a User-Object as descriped above and will write it back to the database.
+
++ Request (application/json)
+
+        {
+            "email":"kolbma@live.de",
+            "first_name":"Marco",
+            "last_name":"Kolb",
+            "hometown":"Hambrücken"
+        }
+
++ Response 200 (application/json)
+
+    + Attributes (user)
+
+# Register [/user]
+
+## Check username [GET /user{?username}]
+
+This checks if the username already exists in the Database. It's required during sign-in,
+as there shouldn't be redundant Usernames.
+
++ Parameters
+    + username: kolbma (required, string) - Username, which should be checked
+
++ Response 200 (text/plain)
+
+        "True"
+
++ Response 200 (text/plain)
+
+        "False"
+        
+        
+
+## Register User [POST]
+
+This will register a user to the system and he will be written in the database.
+Additionally to the attributes described for user, you have to provide a password.
+(for testing purposes this will be plain text)
+
++ Request (application/json)
+
+        {
+            "username":"kolbma",
+            "email":"kolbma@gmail.com",
+            "password":"1234",
+            "first_name":"Marco",
+            "last-name":"Kolb",
+            "hometown":"Hambrücken"
+        }
+   
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /user/kolbma
+    
+    + Body
+    
+            {
+                "username":"kolbma",
+                "email":"kolbma@gmail.com",
+                "first_name":"Marco",
+                "last_name":"Kolb",
+                "hometown":"Hambrücken"
+            }
+
+# Group Places
+
+Our application is called BestPlaces, so let's dive into the actual places-API
+
+# Place [/place]
+
+BestPlaces will user Google Places API to search and get information about the places.
+A blank Place-Object will have those attributes:
+
+## Search [GET /place/search{?q,long,lat,rad}]
+
+Performs a search by the given parameters on google search api.
+
++ Parameters
+
+    + q (string) - Query-string for google search api
+    + long (number) - longitude where place should be searched
+    + lat (number) - latitude where place should be searched
+    + rad (number) - radius around geolocation, where the place should be searched
+
++ Response 200 (application/json)
+
+    + Attributes (array[fullPlace])
+
+## Place Management [/place/{placeId}{?userId}]
+
++ Parameters
+
+    + placeId (required, string) - Id of the place
+    + userId (optional, string) - username, if you want to get user-specific place information
+
+### Get place information [GET]
+
+This returns all information about a place, identified by id, provided by 
+
++ Response 200 (application/json)
+
+    + Attributes (fullPlace)
+
+### Update place information [PUT]
+
+Updating the additional information.
+
++ Request (application/json)
+
+    + Attributes (fullPlace)
+
++ Response 200 (application/json)
+
+    + Attributes (fullPlace)
+
+## Visit [/visit{#visitId}]
+
+A visit is a user-place-date-relationship, when you visit a place.
+
++ Fragments
+
+    + visitId (required, string) - Id of the visit
+
+### Get Visists [GET /visit{?username}]
+
++ Parameters
+
+    + username (string, required)
+
++ Response 200 (application/json)
+    
+    + Attributes (array[visit])
+
+## Get one Visit [GET]
+
+Gets one specific visit
+
++ Response 200 (application/json)
+
+    + Attributes (visit)
+
+## Update visit [PUT]
+
+Updating the additional information.
+
++ Request (application/json)
+
+    + Attributes (visit)
+
++ Response 200 (application/json)
+
+    + Attributes (visit)
+    
+## Create Visit [POST /visit]
+
+Creates a visit
+
++ Request (application/json)
+
+    + Attributes (visit)
+    
++ Response 200 (application/json)
+
+    + Headers
+    
+            location: /user/{visitId}
+        
+    + Attributes (visit)
+    
+    
+
+# Data Structures
+
+## user (object)
+
++ username: kolbma (string) - Username of the user
++ email: kolbma@mathtap.de (string) - email of the user
++ first_name: Marco (string) - first name of the user
++ last_name: Kolb (string) - last name of the user
++ hometown: Hambrücken (string) - hometown of the user
++ visits: xyz, id2, id3 (array[string]) - visit-id's of the user
+
+## place (object)
+
++ placeId: ChIJd_6tlTcGl0cRVpRkbna3w68 (string) - id of the place (provided by Google)
+
+## fullPlace (place)
+
++ name: Pizza Blitz Karlsruhe (string, required) - Name
++ geo (object, required) - Geometry of the place
+    + longitude: 8.412367999999999 (number) - longitude of the place
+    + latitude: 49.0090918 (number) - latitude of the place
++ address (object, required) - Contains all informations on the address
+    + street: Kaiserstraße (string) - Street of the place
+    + `house_number`: 49 (number) - House number
+    + town: Karlsruhe (string) - Town
+    + `zip_code`: 76131 (number) - ZIP Code
++ phone_number: +49 721 376777 (string, optional) - Phone number (if provided)
++ website: http://www.pizzablitz.info/ (string, optional) - website (if provided)
++ openingHours (array[openingHours])
++ pictures (array[string])
++ favorite: false (boolean, optional) - determines if user marked place as favorite
++ averageStar: 5 (number, optional) - the average rating for the place (0-5)
++ review_list (review, optional) - usernames, which gave a review on the place
+
+## visit (object)
++ visitid: 1 (number, required) - Visit id
++ place: ChIJd_6tlTcGl0cRVpRkbna3w68 (string, required) - Place Id
++ user (string, required) - required user
++ visittime: 1480446791167 (number, required) - The time of the visit (in millis)
++ money: 10 (number, optional) - amount of money spent
++ notes (string, optional) - notes for the visit
+
+## openingHours (object)
+
++ day: 0 (number, required) - Day, (from 0 to 6)
++ opens: 1100 (number, required) - Time written as number (0000-2399)
++ closes 2230 (number, optional) - Time written as number. (optional for 24h open)
+
+## review (object)
+
++ stars: 5 (number, required) - number 0-4, which rates the place
++ showName: true (boolean, required) - indicates whether user wants to present his name on the review
++ text: schöner ort (string, optional) - text for the review
