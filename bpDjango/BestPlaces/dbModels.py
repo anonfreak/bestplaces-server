@@ -7,35 +7,25 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django_mysql.models import JSONField
+from BestPlaces.models import User
+from bpDjango import settings
 
 
 class Place(models.Model):
     placeid = models.CharField(db_column='placeId', primary_key=True, max_length=28)  # Field name made lowercase.
-    additionalInformation = JSONField(db_column='additionalInformation', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    additional_information = JSONField(db_column='additionalInformation', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
         managed = False
         db_table = 'Place'
 
 
-class User(AbstractUser):
-    username = models.CharField(primary_key=True, max_length=45, unique=True)
-    email = models.CharField(max_length=50, blank=True, null=True)
-    create_time = models.DateTimeField(blank=True, null=True)
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
-    hometown = models.CharField(max_length=45, blank=True, null=True)
-
-    USERNAME_FIELD = "username"
-
-
 class Visit(models.Model):
     visitid = models.AutoField(db_column='visitId', primary_key=True)  # Field name made lowercase.
-    user = models.ForeignKey('User', User.username, db_column='user')
-    place = models.ForeignKey('Place', Place.placeid, db_column='place')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, db_column='user', default=User())
+    place = models.ForeignKey(Place, models.CASCADE, db_column='place', default=Place())
     visitime = models.DateTimeField()
     notes = models.TextField(blank=True, null=True)
     money = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
@@ -45,8 +35,8 @@ class Visit(models.Model):
         db_table = 'Visit'
 
 class Userplaceinformation(models.Model):
-    user = models.ForeignKey('User', User.username, db_column='user', primary_key=True)
-    place = models.ForeignKey('Place',Place.placeid, db_column='place', primary_key=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, primary_key=True, null=True)
     favorite = models.IntegerField(blank=True, null=True)
     reviewtext = models.TextField(db_column='reviewText', blank=True, null=True)  # Field name made lowercase.
     stars = models.IntegerField(blank=True, null=True)
@@ -55,4 +45,3 @@ class Userplaceinformation(models.Model):
     class Meta:
         managed = False
         db_table = 'UserPlaceInformation'
-        unique_together = (('user', 'place'),)
