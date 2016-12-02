@@ -11,8 +11,25 @@ class MyUserManager(BaseUserManager):
             last_name = last_name,
             hometown = hometown
         )
-
+        user.is_staff = True
         user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, first_name, last_name, hometown, password):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            username=username,
+            email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
+            hometown=hometown,
+            password=password
+        )
+        user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -27,6 +44,7 @@ class User(AbstractBaseUser):
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
 
     objects = MyUserManager()
 

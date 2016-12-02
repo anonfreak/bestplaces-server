@@ -1,3 +1,5 @@
+from rest_framework import generics
+from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.views import APIView
 
@@ -8,11 +10,14 @@ from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSeriali
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
+    queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 class VisitViewSet(viewsets.ModelViewSet):
