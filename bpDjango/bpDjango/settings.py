@@ -25,8 +25,6 @@ SECRET_KEY = '++ft_nu+u&_4)7*7d#@#m8r3r07lnody9q58mmvpf=ma@r#fk4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','mathtap.de']
-
 
 # Application definition
 
@@ -85,6 +83,9 @@ DATABASES = {
         'PASSWORD': 'pfQB7xr3N08tgJnTpYtH',
         'HOST': 'mathtap.de',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     },
     'other':{
         'ENGINE': 'django.db.backends.sqlite3',
