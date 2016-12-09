@@ -1,23 +1,23 @@
+from django.http import Http404
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 
 from BestPlaces.dbModels import Visit
 from BestPlaces.models import User
 from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer
 
 
-# Create your views here.
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(mixins.CreateModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
 
 class VisitViewSet(viewsets.ModelViewSet):
@@ -26,6 +26,7 @@ class VisitViewSet(viewsets.ModelViewSet):
     """
     queryset = Visit.objects.all().order_by('-date_joined')
     serializer_class = VisitSerializer
+
 
 class PlacesView(APIView):
     """
@@ -43,6 +44,7 @@ class PlacesView(APIView):
 
     def delete(self, request, pk, format=None):
         pass
+
 
 class SearchView(APIView):
     def get(self, request, pk, format=None):
