@@ -13,13 +13,24 @@ Everything which has to do with User-Management
 
 This will handle User-Management and all relating stuff.
 
++ Parameters
+
+    + username: kolbma (string) - Username of the queried user
+
 ## Get User-object [GET]
 
-This will return a user-object (JSON), which contains all informations from the database about the user
+This will return a user-object (JSON), which contains all informations from the database about the user.
+Moreover it can be used to query if the username is already existing by doing GET with a already used username.
 
 + Response 200 (application/json)
 
     + Attributes (user)
+
++ Response 404 (application/json)
+
+        {
+            "detail": "Not found."
+        }
 
 ## Update User-object [PUT]
 
@@ -39,7 +50,7 @@ This will get a User-Object as descriped above and will write it back to the dat
     + Attributes (user)
 
 # Register [/user]
-
+<!--
 ## Check username [GET /user{?username}]
 
 This checks if the username already exists in the Database. It's required during sign-in,
@@ -54,7 +65,7 @@ as there shouldn't be redundant Usernames.
 
 + Response 200 (text/plain)
 
-        "False"
+        "False"-->
         
         
 
