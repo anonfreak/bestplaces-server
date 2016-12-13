@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_mysql',
     'rest_framework',
     'BestPlaces',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +97,7 @@ DATABASES = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
     'PAGE_SIZE': 10,
     'TEST_REQUEST_RENDERER_CLASSES': (
         'rest_framework.renderers.MultiPartRenderer',
