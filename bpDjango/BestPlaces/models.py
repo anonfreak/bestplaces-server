@@ -11,6 +11,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email, first_name, last_name, hometown, password):
         user = self.model(

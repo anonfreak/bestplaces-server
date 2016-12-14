@@ -16,6 +16,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             validated_data["password"]
         )
 
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            if attr == 'password':
+                instance.set_password(value)
+            else:
+                setattr(instance, attr, value)
+        instance.save()
+        return instance
+
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'first_name', 'last_name', "hometown","password")
