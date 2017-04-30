@@ -15,6 +15,7 @@ from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSeriali
 class UserViewSet(mixins.CreateModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin,
                   GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
