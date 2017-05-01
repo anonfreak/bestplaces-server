@@ -25,6 +25,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         instance.save()
         return instance
 
+    def destroy(self, instance):
+        instance.delete()
+
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'first_name', 'last_name', "hometown","password")
