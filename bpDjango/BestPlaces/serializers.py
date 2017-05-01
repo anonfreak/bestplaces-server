@@ -29,9 +29,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'username', 'email', 'first_name', 'last_name', "hometown","password")
 
+
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
+
 
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:

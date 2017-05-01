@@ -41,3 +41,7 @@ class UserTest(APITestCase):
         response = self.client.post("/api-token-auth/", data={'username': 'test', 'password': 'Test'}, format="json")
         self.assertEquals(200, response.status_code)
         self.assertEqual(self.token, response.data["token"])
+
+    def test_delete_user(self):
+        response = self.client.delete("/user/kolbma/")
+        self.assertEquals(404, response.status_code)
