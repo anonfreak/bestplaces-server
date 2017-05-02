@@ -18,30 +18,31 @@ class Place(models.Model):
     additional_information = JSONField(db_column='additionalInformation', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Place'
 
 
 class Visit(models.Model):
     visitid = models.AutoField(db_column='visitId', primary_key=True)  # Field name made lowercase.
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, db_column='user', default=User())
-    place = models.ForeignKey(Place, models.CASCADE, db_column='place', default=Place())
+    user = models.ForeignKey(User, db_column="user", on_delete=models.CASCADE, default="")
+    place = models.ForeignKey(Place, db_column="place", on_delete=models.CASCADE, default="")
     visitime = models.DateTimeField()
     notes = models.TextField(blank=True, null=True)
     money = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Visit'
 
 class Userplaceinformation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, primary_key=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, primary_key=True, on_delete=models.CASCADE, default=User)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, default=Place)
     favorite = models.IntegerField(blank=True, null=True)
     reviewtext = models.TextField(db_column='reviewText', blank=True, null=True)  # Field name made lowercase.
     stars = models.IntegerField(blank=True, null=True)
     reviewshowname = models.IntegerField(db_column='reviewShowName', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
+        unique_together = (('user','place'),)
         db_table = 'UserPlaceInformation'
