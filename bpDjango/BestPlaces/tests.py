@@ -1,12 +1,25 @@
 # coding=utf-8
+import json
+from pprint import pprint
+from unittest import skip
+
 from django.test import TestCase
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
+
+from BestPlaces.placesApiHandler import PlacesApiHandler
 from models import User
 from rest_framework.authtoken.models import Token
 
+class PlacesApiTest(TestCase):
+    def setUp(self):
+        self.client = PlacesApiHandler()
 
+    def test_search(self):
+        result = self.client.get_place_information("Pizza in Karlsruhew")
+        self.assertIsNotNone(result)
 
+@skip("Development")
 class UserTest(APITestCase):
     def setUp(self):
         User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
