@@ -1,12 +1,24 @@
 # coding=utf-8
+from pprint import pprint
+from unittest import skip
+
 from django.test import TestCase
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
+
+from BestPlaces.placesApiHandler import PlacesApiHandler
 from models import User
 from rest_framework.authtoken.models import Token
 
+class PlacesTest(TestCase):
+    def setUp(self):
+        self.controller = PlacesApiHandler()
 
+    def test_search_places(self):
+        response = self.controller.search_place(query="Pizza in Karlsruhe")
+        pprint(response)
 
+@skip("Concentrating on places")
 class UserTest(APITestCase):
     def setUp(self):
         User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")

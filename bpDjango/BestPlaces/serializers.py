@@ -38,6 +38,17 @@ class PlaceSerializer(serializers.ModelSerializer):
         model = Place
 
 
+class MinimalPlaceSerializer(serializers.Serializer):
+    placeId = serializers.CharField()
+    name = serializers.CharField()
+    geo = serializers.DictField()
+    formatted_address = serializers.CharField()
+    openNow = serializers.BooleanField()
+    rating = serializers.IntegerField()
+    photos = serializers.ListField()
+    categories = serializers.ListField()
+
+
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visit

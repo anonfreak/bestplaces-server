@@ -1,5 +1,30 @@
+import re
+
+
+def create_geo_dict(latitude, longitude):
+    return {"latitude":latitude, "longitude":longitude}
+
+
+class MinimalPlace:
+    def __init__(self, dict):
+        self.placeId = dict["place_id"]
+        self.name = dict["name"]
+        self.geo = create_geo_dict(dict["geometry"]["location"]["lat"], dict["geometry"]["location"]["lng"])
+        self.rating = dict["rating"]
+        self.formatted_address = dict["formatted_address"]
+        self.openNow = dict["opening_hours"]["open_now"]
+        self.pictures = self.__parsephotos(dict["photos"])
+        self.categories = dict["types"]
+
+    def __parsephotos(self, dictPic):
+        photos = []
+        for photo in dictPic:
+            photos.append(re.match(".*\"(.*?)\"", photo["html_attributions"]).group(1))
+        return photos
+
+
 class UserPlace:
-    placeid = ""
+    placeId = ""
     name = ""
     geo = {"latitude": 0, "longitude": 0}
     address = Address()
@@ -11,8 +36,13 @@ class UserPlace:
     favorite = True
     review_list = [Review()]
 
-    def __init__(self):
-        pass
+    def __init__(self, dict):
+        self.placeId = dict["place_id"]
+        self.averageStar = dict["rating"]
+        self.name = dict["name"]
+        self.geo["latitude"] = dict["location"]["lat"]
+        self.geo["longitude"] = dict["location"]["lng"]
+        self.address = Adress()
 
 class openingHour:
     day = 0
@@ -25,8 +55,11 @@ class Address:
     town = ""
     zip_code = 0
 
-    def __init__(self):
-        pass
+    def __init__(self, street, house_number, town, zip_code):
+        self.street = street
+        self.house_number = house_number
+        self.town = town
+        self.zip_code = zip_code
 
 
 class Review:
