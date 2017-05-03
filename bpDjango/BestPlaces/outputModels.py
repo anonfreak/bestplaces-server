@@ -7,19 +7,20 @@ def create_geo_dict(latitude, longitude):
 
 class MinimalPlace:
     def __init__(self, dict):
-        self.placeId = dict["place_id"]
-        self.name = dict["name"]
-        self.geo = create_geo_dict(dict["geometry"]["location"]["lat"], dict["geometry"]["location"]["lng"])
-        self.rating = dict["rating"]
-        self.formatted_address = dict["formatted_address"]
-        self.openNow = dict["opening_hours"]["open_now"]
-        self.pictures = self.__parsephotos(dict["photos"])
-        self.categories = dict["types"]
+            self.placeId = dict["place_id"]
+            self.name = dict["name"]
+            self.geo = create_geo_dict(dict["geometry"]["location"]["lat"], dict["geometry"]["location"]["lng"])
+            self.rating = dict["rating"]
+            self.formatted_address = dict["formatted_address"]
+            self.openNow = dict["opening_hours"]["open_now"]
+            if "photos" in dict:
+                self.photos = self.__parsephotos(dict["photos"])
+            self.categories = dict["types"]
 
     def __parsephotos(self, dictPic):
         photos = []
         for photo in dictPic:
-            photos.append(re.match(".*\"(.*?)\"", photo["html_attributions"]).group(1))
+            photos.append(re.match(".*\"(.*?)\"", str(photo["html_attributions"])).group(1))
         return photos
 
 
@@ -27,14 +28,13 @@ class UserPlace:
     placeId = ""
     name = ""
     geo = {"latitude": 0, "longitude": 0}
-    address = Address()
     phone_number = 0
     website = ""
     openingHours = []
     pictures = []
     averageStar = 0
     favorite = True
-    review_list = [Review()]
+    review_list = []
 
     def __init__(self, dict):
         self.placeId = dict["place_id"]
@@ -42,12 +42,13 @@ class UserPlace:
         self.name = dict["name"]
         self.geo["latitude"] = dict["location"]["lat"]
         self.geo["longitude"] = dict["location"]["lng"]
-        self.address = Adress()
+
 
 class openingHour:
     day = 0
     opens = 0000
     closes = 0000
+
 
 class Address:
     street =""

@@ -48,6 +48,12 @@ class MinimalPlaceSerializer(serializers.Serializer):
     photos = serializers.ListField()
     categories = serializers.ListField()
 
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
 
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:

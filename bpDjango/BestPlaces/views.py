@@ -49,7 +49,13 @@ class PlacesView(APIView):
 
 class SearchView(APIView):
     def get(self, request, pk, format=None):
-        pass
+        query = request.query_params.get("q")
+        long = request.query_params.get("long")
+        lat = request.query_params.get("lat")
+        rad = request.query_params.get("rad")
+        location = request.query_params.get("location")
+
+
 
     def put(self, request, pk, format=None):
         pass

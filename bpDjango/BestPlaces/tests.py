@@ -17,6 +17,8 @@ class PlacesTest(TestCase):
     def test_search_places(self):
         response = self.controller.search_place(query="Pizza in Karlsruhe")
         pprint(response)
+        self.assertIsNotNone(response)
+
 
 @skip("Concentrating on places")
 class UserTest(APITestCase):
