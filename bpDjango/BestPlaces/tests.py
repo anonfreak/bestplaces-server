@@ -20,7 +20,6 @@ class PlacesTest(TestCase):
         self.assertIsNotNone(response)
 
 
-@skip("Concentrating on places")
 class UserTest(APITestCase):
     def setUp(self):
         User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
