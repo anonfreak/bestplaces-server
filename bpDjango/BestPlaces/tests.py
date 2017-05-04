@@ -20,12 +20,20 @@ class PlacesTest(TestCase):
         self.assertIsNotNone(response)
 
 
-class UserTest(APITestCase):
+class APITestCaseUser(APITestCase):
     def setUp(self):
         User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
         self.token = Token.objects.get_or_create(user="test")[0].key
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token)
 
+
+class PlacesInterfaceTest(APITestCaseUser):
+    def test_search_user(self):
+        response = self.client.get("/place/search?q=Pizza in Karlsruhe&location=Karlsruhe")
+        self.assertEqual(201, response.status_code)
+
+
+class UserTest(APITestCaseUser):
     def test_create_User(self):
         user = {
             'username': 'kolbmarco',
@@ -58,3 +66,4 @@ class UserTest(APITestCase):
     def test_delete_user(self):
         response = self.client.delete("/user/kolbma/")
         self.assertEquals(404, response.status_code)
+
