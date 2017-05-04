@@ -9,7 +9,6 @@ services: # => 3
   - mysql
   - sqlite
 install:
-  - pip install .
   - pip install Django
   - pip install djangorestframework
   - pip install six
