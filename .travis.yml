@@ -17,7 +17,7 @@ install:
   - pip install django-mysql
   - pip install python-google-places
 # command to run tests
-before_script:
-  - cd bpDjango/
+before_script: cd bpDjango/
 script:
   - python manage.py test
+  
