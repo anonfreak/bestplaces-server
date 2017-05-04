@@ -15,6 +15,7 @@ install:
   - pip install mysqlclient
   - pip install django-mysql
   - pip install python-google-places
+  - pip install googlemaps
 # command to run tests
 before_script: cd bpDjango/
 script:
