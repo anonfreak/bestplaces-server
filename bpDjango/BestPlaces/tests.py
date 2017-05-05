@@ -29,8 +29,8 @@ class APITestCaseUser(APITestCase):
 
 class PlacesInterfaceTest(APITestCaseUser):
     def test_search_user(self):
-        response = self.client.get("/place/search?q=Pizza in Karlsruhe&location=Karlsruhe")
-        self.assertEqual(201, response.status_code)
+        response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&location=Karlsruhe")
+        self.assertEqual(200, response.status_code)
 
 
 class UserTest(APITestCaseUser):

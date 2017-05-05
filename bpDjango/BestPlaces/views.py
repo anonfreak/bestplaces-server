@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import generics, status
+from rest_framework import generics, status, authentication, permissions
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -48,14 +48,18 @@ class PlacesView(APIView):
 
 
 class SearchView(APIView):
-    def get(self, request, pk, format=None):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
         query = request.query_params.get("q")
         long = request.query_params.get("long")
         lat = request.query_params.get("lat")
         rad = request.query_params.get("rad")
         location = request.query_params.get("location")
-
-
+        pt = request.query_params.get("pt")
+        response = Response(data="{}", status=200)
+        return response
 
     def put(self, request, pk, format=None):
         pass
