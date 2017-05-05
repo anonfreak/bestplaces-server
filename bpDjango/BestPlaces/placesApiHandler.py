@@ -12,8 +12,8 @@ class PlacesApiHandler:
         self.gplaces = googlemaps.Client(self.API_KEY)
         self.search=None
 
-    def search_place(self, query, location=None, pagetoken=None):
-        self.search = self.gplaces.places(query=query, location=location, page_token=pagetoken)
+    def search_place(self, query, location=None, pagetoken=None, radius=None):
+        self.search = self.gplaces.places(query=query, location=location, radius=radius, page_token=pagetoken)
         places = []
         for place in self.search["results"]:
             places.append(MinimalPlace(place))

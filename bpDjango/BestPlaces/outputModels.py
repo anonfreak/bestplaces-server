@@ -2,10 +2,12 @@ import re
 
 
 def create_geo_dict(latitude, longitude):
-    return {"latitude":latitude, "longitude":longitude}
+    return {"latitude": latitude, "longitude": longitude}
 
 
-class MinimalPlace:
+class MinimalPlace(object):
+    photos = None
+
     def __init__(self, dict):
             self.placeId = dict["place_id"]
             self.name = dict["name"]

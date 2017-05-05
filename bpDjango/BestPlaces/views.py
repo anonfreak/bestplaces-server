@@ -3,13 +3,16 @@ from rest_framework import generics, status, authentication, permissions
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from BestPlaces.dbModels import Visit
 from BestPlaces.models import User
-from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer
+from BestPlaces.outputModels import create_geo_dict
+from BestPlaces.placesApiHandler import PlacesApiHandler
+from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer, MinimalPlaceSerializer
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -50,6 +53,7 @@ class PlacesView(APIView):
 class SearchView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
+    gmaps = PlacesApiHandler()
 
     def get(self, request):
         query = request.query_params.get("q")
@@ -58,7 +62,14 @@ class SearchView(APIView):
         rad = request.query_params.get("rad")
         location = request.query_params.get("location")
         pt = request.query_params.get("pt")
-        response = Response(data="{}", status=200)
+        if location is None:
+            geo = create_geo_dict(lat, long)
+        if lat is not None:
+            location = geo
+        results = self.gmaps.search_place(query=query, location=location, radius=rad, pagetoken=pt)
+        serializer = MinimalPlaceSerializer(data=results, many=True)
+        serializer.is_valid()
+        response = Response(data=serializer.data, status=200)
         return response
 
     def put(self, request, pk, format=None):

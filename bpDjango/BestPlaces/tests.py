@@ -3,10 +3,12 @@ from pprint import pprint
 from unittest import skip
 
 from django.test import TestCase
+from rest_framework.renderers import JSONRenderer
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
 from BestPlaces.placesApiHandler import PlacesApiHandler
+from BestPlaces.serializers import MinimalPlaceSerializer
 from models import User
 from rest_framework.authtoken.models import Token
 
@@ -19,6 +21,14 @@ class PlacesTest(TestCase):
         pprint(response)
         self.assertIsNotNone(response)
 
+    def test_serializing(self):
+        response = self.controller.search_place(query="Pizza in Karlsruhe")
+        serializer = MinimalPlaceSerializer(many=True, data=response)
+        serializer.is_valid()
+        json = JSONRenderer().render(serializer.data)
+        print(json)
+        self.assertIsNotNone(serializer.data)
+
 
 class APITestCaseUser(APITestCase):
     def setUp(self):
@@ -28,10 +38,23 @@ class APITestCaseUser(APITestCase):
 
 
 class PlacesInterfaceTest(APITestCaseUser):
-    def test_search_user(self):
+    def test_search_place_with_location(self):
         response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&location=Karlsruhe")
+        print(response)
         self.assertEqual(200, response.status_code)
 
+    def test_search_place_with_geo(self):
+        response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&lat=49.0088981&long=8.410513600000002")
+        print(response)
+        self.assertEqual(200, response.status_code)
+
+    def test_search_place_without_location(self):
+        response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe")
+        print(response)
+        self.assertEqual(200, response.status_code)
+
+    #def test_search_place_next_page(self):
+    #    response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe?pt=")
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):
