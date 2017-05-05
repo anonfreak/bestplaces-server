@@ -7,14 +7,18 @@ def create_geo_dict(latitude, longitude):
 
 class MinimalPlace(object):
     photos = None
+    openNow = None
+    rating = None
 
     def __init__(self, dict):
             self.placeId = dict["place_id"]
             self.name = dict["name"]
             self.geo = create_geo_dict(dict["geometry"]["location"]["lat"], dict["geometry"]["location"]["lng"])
-            self.rating = dict["rating"]
+            if "rating" in dict:
+                self.rating = dict["rating"]
             self.formatted_address = dict["formatted_address"]
-            self.openNow = dict["opening_hours"]["open_now"]
+            if "opening_hours" in dict:
+                self.openNow = dict["opening_hours"]["open_now"]
             if "photos" in dict:
                 self.photos = self.__parsephotos(dict["photos"])
             self.categories = dict["types"]
