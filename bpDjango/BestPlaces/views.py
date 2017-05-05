@@ -69,7 +69,8 @@ class SearchView(APIView):
         results = self.gmaps.search_place(query=query, location=location, radius=rad, pagetoken=pt)
         serializer = MinimalPlaceSerializer(data=results, many=True)
         serializer.is_valid()
-        response = Response(data=serializer.data, status=200)
+        json = {"pagetoken": self.gmaps.get_pagetoken(), "results": serializer.data}
+        response = Response(data=json, status=200)
         return response
 
     def put(self, request, pk, format=None):

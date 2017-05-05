@@ -25,7 +25,6 @@ class MinimalPlace(object):
             photos.append("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + str(photo["photo_reference"]) + "&key=AIzaSyCk-JFceB-S7QIakQTajh1O7fMGkob7pO0")
         return photos
 
-
 class UserPlace:
     placeId = ""
     name = ""
