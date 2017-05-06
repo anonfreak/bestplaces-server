@@ -39,18 +39,16 @@ class APITestCaseUser(APITestCase):
 
 class PlacesInterfaceTest(APITestCaseUser):
     def test_search_place_with_location(self):
-        response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&location=Karlsruhe")
+        response = self.client.get("/place/search?q=Pizza&location=Karlsruhe")
         print(response)
         self.assertEqual(200, response.status_code)
 
     def test_search_place_with_geo(self):
         response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&lat=49.0088981&long=8.410513600000002")
-        print(response)
         self.assertEqual(200, response.status_code)
 
     def test_search_place_without_location(self):
         response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe")
-        print(response)
         self.assertEqual(200, response.status_code)
 
     def test_search_place_next_page(self):

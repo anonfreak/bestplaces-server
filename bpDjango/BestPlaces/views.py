@@ -66,6 +66,8 @@ class SearchView(APIView):
             geo = create_geo_dict(lat, long)
         if lat is not None:
             location = geo
+        else:
+            query = query + " in " + str(location)
         results = self.gmaps.search_place(query=query, location=location, radius=rad, pagetoken=pt)
         serializer = MinimalPlaceSerializer(data=results, many=True)
         serializer.is_valid()
