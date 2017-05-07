@@ -27,3 +27,6 @@ class PlacesApiHandler:
         if "next_page_token" in self.search.keys():
             token = self.search["next_page_token"]
         return token
+
+    def get_place(self, place_id):
+        pass

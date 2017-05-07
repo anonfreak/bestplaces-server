@@ -29,6 +29,10 @@ class PlacesTest(TestCase):
         print(json)
         self.assertIsNotNone(serializer.data)
 
+    def test_get_place_information(self):
+        response = self.controller.get_place(place_id="ChIJlTaoHkgGl0cRxoI4A0I-HYk")
+        self.assertEqual(response.name, "Kais Pizza Brückenrestaurant mit Lieferservice")
+
 
 class APITestCaseUser(APITestCase):
     def setUp(self):
@@ -55,6 +59,9 @@ class PlacesInterfaceTest(APITestCaseUser):
         response = self.client.get("/place/search?q=Pizza%20in%20Karlsruhe&pt=CvQB6QAAAA_-AN1KWX5fPAohM2uHUUXc7oAhMm405EzDay3vreIgjgkgFfrscLt345IiagvEHwzIiAaL1Or-X9-UHJkg3Ua-N-u-TVDr82WhbyirSYYqOSVnH6jsRMRHvr32tebg60GZqGj5nOxOjsOmTmMhuZeq6fhdSLV1GiIFnfrYf05SP0CG45L8E64OVL11RAh05hDPTA7z0kVY4OBA9LGKvc-65I60IxdlBPrg1qh3Uj2fSllaQ40k4tvz3WttWQIv87exG4xvWe49ACXJxTKKRpRySLD2uYDCquDD4_6y0LSsZdFgFC8u6lFTBCFT_5fGRhIQ5x7fSX2rMjrllbN-4H7i2hoUDEZNzi9SrnhS_ehf9u6IEdSQ91E")
         self.assertEqual(200, response.status_code)
 
+    def test_get_place(self):
+        response = self.client.get("/place/ChIJlTaoHkgGl0cRxoI4A0I-HYk/")
+        self.assertEqual(200, response.status_code)
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):
