@@ -29,6 +29,19 @@ class MinimalPlace(object):
             photos.append("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + str(photo["photo_reference"]) + "&key=AIzaSyCk-JFceB-S7QIakQTajh1O7fMGkob7pO0")
         return photos
 
+class FullPlace(MinimalPlace):
+    address = None
+    phone_number = None
+    website = None
+    openingHours = None
+    favorite = None
+
+    def __init__(self, dict):
+        super(FullPlace, self).__init__(dict)
+        if "address" in dict:
+            self.address = Address(array=dict)
+
+
 class UserPlace:
     placeId = ""
     name = ""
@@ -57,16 +70,26 @@ class openingHour:
 
 class Address:
     street =""
-    house_number = ""
+    streetNumber = ""
     town = ""
-    zip_code = 0
+    zipCode = 0
 
-    def __init__(self, street, house_number, town, zip_code):
-        self.street = street
-        self.house_number = house_number
-        self.town = town
-        self.zip_code = zip_code
-
+    def __init__(self, street=None, house_number=None, town=None, zip_code=None, array=None):
+        if array is None:
+            self.street = street
+            self.streetNumber = house_number
+            self.town = town
+            self.zipCode = zip_code
+        else:
+            for component in array:
+                if "route" in component["types"]:
+                    self.street = component["long_name"]
+                if "locality" in component["types"]:
+                    self.town = component["long_name"]
+                if "street_number" in component["types"]:
+                    self.streetNumber = component["long_name"]
+                if "postal_code" in component["types"]:
+                    self.zipCode = component["long_name"]
 
 class Review:
     starts = 0

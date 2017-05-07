@@ -29,4 +29,5 @@ class PlacesApiHandler:
         return token
 
     def get_place(self, place_id):
-        pass
+        place_information = self.gplaces.place(place_id=place_id)
+
