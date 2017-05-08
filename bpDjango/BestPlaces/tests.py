@@ -40,7 +40,7 @@ class PlacesTest(TestCase):
         self.assertEqual(response.phone_number, "+49 721 373734")
 
     def test_create_adress(self):
-        jsonString = '[ { "long_name": "1", "short_name": "1", "types": [ "street_number" ] }, { "long_name": "Fritz-Erler-Straße", "short_name": "Fritz-Erler-Straße", "types": [ "route" ]}, { "long_name": "Innenstadt-Ost", "short_name": "Innenstadt-Ost", "types": [ "sublocality_level_1", "sublocality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "Karlsruhe", "types": [ "locality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "KA", "types": [ "administrative_area_level_2", "political" ] }, { "long_name": "Baden-Württemberg", "short_name": "BW", "types": [ "administrative_area_level_1", "political" ] }, { "long_name": "Germany", "short_name": "DE", "types": [ "country", "political" ] }, { "long_name": "76133", "short_name": "76133", "types": [ "postal_code" ] } ]'
+        jsonString = '{ "address_components" : [ { "long_name": "1", "short_name": "1", "types": [ "street_number" ] }, { "long_name": "Fritz-Erler-Straße", "short_name": "Fritz-Erler-Straße", "types": [ "route" ]}, { "long_name": "Innenstadt-Ost", "short_name": "Innenstadt-Ost", "types": [ "sublocality_level_1", "sublocality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "Karlsruhe", "types": [ "locality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "KA", "types": [ "administrative_area_level_2", "political" ] }, { "long_name": "Baden-Württemberg", "short_name": "BW", "types": [ "administrative_area_level_1", "political" ] }, { "long_name": "Germany", "short_name": "DE", "types": [ "country", "political" ] }, { "long_name": "76133", "short_name": "76133", "types": [ "postal_code" ] } ]}'
         array = json.loads(jsonString)
         addressJson = Address(array=array)
         address = Address(house_number=1, street="Fritz-Erler-Straße", town="Karlsruhe", zip_code=76133)
@@ -77,6 +77,7 @@ class PlacesInterfaceTest(APITestCaseUser):
 
     def test_get_place(self):
         response = self.client.get("/place/ChIJlTaoHkgGl0cRxoI4A0I-HYk/")
+        print(response)
         self.assertEqual(200, response.status_code)
 
 

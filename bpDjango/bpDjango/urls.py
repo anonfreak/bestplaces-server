@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-token-auth/', rest_views.obtain_auth_token),
     url(r'^place/search$', SearchView.as_view()),
-    url(r'^place/(?P<placeId>.+)', PlacesView.as_view())
+    url(r'^place/(?P<placeId>.+)/$', PlacesView.as_view())
 ]
 

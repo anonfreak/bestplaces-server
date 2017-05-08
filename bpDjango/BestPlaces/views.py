@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from rest_framework import generics, status, authentication, permissions
 from rest_framework import mixins
 from rest_framework import viewsets
@@ -12,7 +12,8 @@ from BestPlaces.dbModels import Visit
 from BestPlaces.models import User
 from BestPlaces.outputModels import create_geo_dict
 from BestPlaces.placesApiHandler import PlacesApiHandler
-from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer, MinimalPlaceSerializer
+from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer, MinimalPlaceSerializer, \
+    FullPlaceSerializer
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -33,15 +34,14 @@ class VisitViewSet(viewsets.ModelViewSet):
 
 
 class PlacesView(APIView):
-    """
-        Retrieve, update or delete a snippet instance.
-        """
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    gmaps = PlacesApiHandler()
 
-    def get_object(self, pk):
-        pass
-
-    def get(self, request, pk, format=None):
-        pass
+    def get(self, request, placeId):
+        result = self.gmaps.get_place(placeId)
+        serializer = FullPlaceSerializer(result)
+        return JsonResponse(data=serializer.data, status=200)
 
     def put(self, request, pk, format=None):
         pass
@@ -49,15 +49,6 @@ class PlacesView(APIView):
     def delete(self, request, pk, format=None):
         pass
 
-
-class PlacesView(APIView):
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
-    gmaps = PlacesApiHandler()
-
-    def get(self, request, placeId):
-        result = self.gmaps.get_place(placeId)
-        pass
 
 class SearchView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)

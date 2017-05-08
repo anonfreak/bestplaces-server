@@ -39,7 +39,7 @@ class FullPlace(MinimalPlace):
 
     def __init__(self, dict):
         super(FullPlace, self).__init__(dict)
-        if "address" in dict:
+        if "address_components" in dict:
             self.address = Address(array=dict)
         if "international_phone_number" in dict:
             self.phone_number = dict["international_phone_number"]
@@ -83,7 +83,7 @@ class Address:
             self.town = town
             self.zipCode = int(zip_code)
         else:
-            for component in array:
+            for component in array["address_components"]:
                 if "route" in component["types"]:
                     self.street = component["long_name"]
                 if "locality" in component["types"]:

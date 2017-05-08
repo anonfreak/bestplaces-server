@@ -45,21 +45,14 @@ class MinimalPlaceSerializer(serializers.Serializer):
     formatted_address = serializers.CharField()
     openNow = serializers.BooleanField()
     rating = serializers.IntegerField()
-    photos = serializers.ListField()
-    categories = serializers.ListField()
+    photos = serializers.ListField(child=serializers.CharField())
+    categories = serializers.ListField(child=serializers.CharField())
 
     def create(self, validated_data):
         pass
 
     def update(self, instance, validated_data):
         pass
-
-
-class FullPlaceSerializer(MinimalPlaceSerializer):
-    address = AddressSerializer()
-    phone_number = serializers.CharField()
-    website = serializers.CharField()
-    openingHours = serializers.ListField()
 
 
 class AddressSerializer(serializers.Serializer):
@@ -73,6 +66,13 @@ class AddressSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         pass
+
+
+class FullPlaceSerializer(MinimalPlaceSerializer):
+    address = AddressSerializer()
+    phone_number = serializers.CharField()
+    website = serializers.CharField()
+    openingHours = serializers.ListField(child=serializers.CharField())
 
 
 class VisitSerializer(serializers.ModelSerializer):
