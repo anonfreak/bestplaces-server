@@ -29,6 +29,7 @@ class MinimalPlace(object):
             photos.append("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + str(photo["photo_reference"]) + "&key=AIzaSyCk-JFceB-S7QIakQTajh1O7fMGkob7pO0")
         return photos
 
+
 class FullPlace(MinimalPlace):
     address = None
     phone_number = None
@@ -40,6 +41,13 @@ class FullPlace(MinimalPlace):
         super(FullPlace, self).__init__(dict)
         if "address" in dict:
             self.address = Address(array=dict)
+        if "international_phone_number" in dict:
+            self.phone_number = dict["international_phone_number"]
+        if "website" in dict:
+            self.website = dict["website"]
+        if "opening_hours" in dict:
+            self.openingHours = dict["opening_hours"]["weekday_text"]
+
 
 
 class UserPlace:
@@ -60,12 +68,6 @@ class UserPlace:
         self.name = dict["name"]
         self.geo["latitude"] = dict["location"]["lat"]
         self.geo["longitude"] = dict["location"]["lng"]
-
-
-class openingHour:
-    day = 0
-    opens = 0000
-    closes = 0000
 
 
 class Address:

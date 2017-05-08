@@ -34,7 +34,10 @@ class PlacesTest(TestCase):
 
     def test_get_place_information(self):
         response = self.controller.get_place(place_id="ChIJlTaoHkgGl0cRxoI4A0I-HYk")
-        self.assertEqual(response.name, "Kais Pizza Brückenrestaurant mit Lieferservice")
+        self.assertEqual(response.name, u'Kais Pizza Brückenrestaurant mit Lieferservice')
+        self.assertEqual(len(response.openingHours), 7)
+        self.assertEqual(response.website, "http://www.kais-pizza.de/")
+        self.assertEqual(response.phone_number, "+49 721 373734")
 
     def test_create_adress(self):
         jsonString = '[ { "long_name": "1", "short_name": "1", "types": [ "street_number" ] }, { "long_name": "Fritz-Erler-Straße", "short_name": "Fritz-Erler-Straße", "types": [ "route" ]}, { "long_name": "Innenstadt-Ost", "short_name": "Innenstadt-Ost", "types": [ "sublocality_level_1", "sublocality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "Karlsruhe", "types": [ "locality", "political" ] }, { "long_name": "Karlsruhe", "short_name": "KA", "types": [ "administrative_area_level_2", "political" ] }, { "long_name": "Baden-Württemberg", "short_name": "BW", "types": [ "administrative_area_level_1", "political" ] }, { "long_name": "Germany", "short_name": "DE", "types": [ "country", "political" ] }, { "long_name": "76133", "short_name": "76133", "types": [ "postal_code" ] } ]'
@@ -75,6 +78,7 @@ class PlacesInterfaceTest(APITestCaseUser):
     def test_get_place(self):
         response = self.client.get("/place/ChIJlTaoHkgGl0cRxoI4A0I-HYk/")
         self.assertEqual(200, response.status_code)
+
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):

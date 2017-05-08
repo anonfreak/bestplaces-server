@@ -2,7 +2,7 @@ import os
 
 import googlemaps
 
-from BestPlaces.outputModels import MinimalPlace
+from BestPlaces.outputModels import MinimalPlace, FullPlace
 
 
 class PlacesApiHandler:
@@ -30,4 +30,5 @@ class PlacesApiHandler:
 
     def get_place(self, place_id):
         place_information = self.gplaces.place(place_id=place_id)
+        return FullPlace(place_information["result"])
 
