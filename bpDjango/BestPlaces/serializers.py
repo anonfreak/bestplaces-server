@@ -55,6 +55,26 @@ class MinimalPlaceSerializer(serializers.Serializer):
         pass
 
 
+class FullPlaceSerializer(MinimalPlaceSerializer):
+    address = AddressSerializer()
+    phone_number = serializers.CharField()
+    website = serializers.CharField()
+    openingHours = serializers.ListField()
+
+
+class AddressSerializer(serializers.Serializer):
+    street = serializers.CharField()
+    streetNumber = serializers.IntegerField()
+    town = serializers.CharField()
+    zipCode = serializers.IntegerField()
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visit
