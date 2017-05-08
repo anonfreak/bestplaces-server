@@ -50,6 +50,15 @@ class PlacesView(APIView):
         pass
 
 
+class PlacesView(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    gmaps = PlacesApiHandler()
+
+    def get(self, request, placeId):
+        result = self.gmaps.get_place(placeId)
+        pass
+
 class SearchView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
