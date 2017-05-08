@@ -42,7 +42,9 @@ class PlacesTest(TestCase):
         addressJson = Address(array=array)
         address = Address(house_number=1, street="Fritz-Erler-Straße", town="Karlsruhe", zip_code=76133)
         self.assertEqual(addressJson.zipCode, address.zipCode)
-
+        self.assertEqual(addressJson.streetNumber, address.streetNumber)
+        self.assertEqual(addressJson.town, address.town)
+        self.assertEqual(addressJson.zipCode, address.zipCode)
 
 
 class APITestCaseUser(APITestCase):
