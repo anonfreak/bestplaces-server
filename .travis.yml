@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
   # PyPy versions
-  - "pypy"
+  #- "pypy"
 # command to install dependencies
 services: # => 3
   - mysql
@@ -14,8 +14,12 @@ install:
   - pip install django-mysql
   - pip install python-google-places
   - pip install googlemaps
+  - pip install coveralls
 # command to run tests
 before_script: cd bpDjango/
 script:
   - python manage.py test
+  - coverage run --source=./ manage.py test
+after_success:
+  - coveralls
   
