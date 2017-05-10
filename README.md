@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/anonfreak/bestplaces-server.svg?branch=master)](https://travis-ci.org/anonfreak/bestplaces-server)
+[![Coverage Status](https://coveralls.io/repos/github/anonfreak/bestplaces-server/badge.svg?branch=master)](https://coveralls.io/github/anonfreak/bestplaces-server?branch=master)
 # BestPlaces
 Track your favorite Places and find more of them.
 ## Structure
