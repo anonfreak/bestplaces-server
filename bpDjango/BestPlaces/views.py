@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.http import Http404, JsonResponse
 from rest_framework import generics, status, authentication, permissions
 from rest_framework import mixins
@@ -66,8 +68,8 @@ class SearchView(APIView):
             geo = create_geo_dict(lat, long)
         if lat is not None:
             location = geo
-        else:
-            query = query + " in " + str(location)
+        elif location is not None:
+            query = query + u' in ' + location
         results = self.gmaps.search_place(query=query, location=location, radius=rad, pagetoken=pt)
         serializer = MinimalPlaceSerializer(data=results, many=True)
         serializer.is_valid()
