@@ -23,6 +23,7 @@ from BestPlaces.views import SearchView, PlacesView
 
 router = routers.DefaultRouter()
 router.register(r'user', own_views.UserViewSet)
+router.register(r'visit', own_views.VisitViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
