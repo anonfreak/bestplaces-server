@@ -91,7 +91,15 @@ class VisitTest(APITestCaseUser):
     def test_create_visit_object(self):
         visit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
         self.assertEqual(Visit.objects.get(user="test"), visit)
-
+    def test_create_visit_view(self):
+        visit = {
+            'user': 'test',
+            'place': 'ChIJlTaoHkgGl0cRxoI4A0I',
+            'visittime': '2017-05-24T13:00:00.0Z',
+            'money': 10
+        }
+        response = self.client.post("/visit/", data=visit)
+        self.assertEqual(response.status_code, 201)
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):
