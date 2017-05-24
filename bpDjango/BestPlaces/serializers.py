@@ -78,3 +78,4 @@ class FullPlaceSerializer(MinimalPlaceSerializer):
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visit
+        fields = ('visitid', 'user', 'place', 'visittime', 'money')

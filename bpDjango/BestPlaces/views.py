@@ -27,11 +27,12 @@ class UserViewSet(mixins.CreateModelMixin,
     serializer_class = UserSerializer
 
 
-class VisitViewSet(viewsets.ModelViewSet):
+class VisitViewSet(mixins.CreateModelMixin,
+                   GenericViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Visit.objects.all().order_by('-date_joined')
+    queryset = Visit.objects.all()
     serializer_class = VisitSerializer
 
 
