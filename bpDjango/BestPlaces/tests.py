@@ -3,11 +3,13 @@ import json
 from pprint import pprint
 from unittest import skip
 
+from datetime import datetime
 from django.test import TestCase
 from rest_framework.renderers import JSONRenderer
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from BestPlaces.dbModels import Visit
 from BestPlaces.outputModels import Address
 from BestPlaces.placesApiHandler import PlacesApiHandler
 from BestPlaces.serializers import MinimalPlaceSerializer
@@ -50,9 +52,10 @@ class PlacesTest(TestCase):
         self.assertEqual(addressJson.zipCode, address.zipCode)
 
 
+
 class APITestCaseUser(APITestCase):
     def setUp(self):
-        User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
+        self.user = User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
         self.token = Token.objects.get_or_create(user="test")[0].key
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token)
 
@@ -82,6 +85,12 @@ class PlacesInterfaceTest(APITestCaseUser):
         response = self.client.get("/place/ChIJlTaoHkgGl0cRxoI4A0I-HYk/")
         print(response)
         self.assertEqual(200, response.status_code)
+
+
+class VisitTest(APITestCaseUser):
+    def test_create_visit_object(self):
+        visit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
+        self.assertEqual(Visit.objects.get(user="test"), visit)
 
 
 class UserTest(APITestCaseUser):

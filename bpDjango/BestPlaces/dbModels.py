@@ -25,9 +25,9 @@ class Place(models.Model):
 class Visit(models.Model):
     visitid = models.AutoField(db_column='visitId', primary_key=True)  # Field name made lowercase.
     user = models.ForeignKey(User, db_column="user", on_delete=models.CASCADE, default="")
-    place = models.ForeignKey(Place, db_column="place", on_delete=models.CASCADE, default="")
-    visittime = models.DateTimeField()
-    money = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    place = models.CharField(db_column="place", max_length=10, null=False, default="")
+    visittime = models.DateTimeField(db_column="visitime")
+    money = models.DecimalField(db_column="money", max_digits=5, decimal_places=2, blank=True, null=True)
 
     class Meta:
         managed = True
