@@ -7,18 +7,18 @@ class MinimalPlace(object):
     openNow = None
     rating = None
 
-    def __init__(self, dict):
-            self.placeId = dict["place_id"]
-            self.name = dict["name"]
-            self.geo = create_geo_dict(dict["geometry"]["location"]["lat"], dict["geometry"]["location"]["lng"])
-            if "rating" in dict:
-                self.rating = dict["rating"]
-            self.formatted_address = dict["formatted_address"]
-            if "opening_hours" in dict:
-                self.openNow = dict["opening_hours"]["open_now"]
-            if "photos" in dict:
-                self.photos = self.__parsephotos(dict["photos"])
-            self.categories = dict["types"]
+    def __init__(self, jsonPlace):
+            self.placeId = jsonPlace["place_id"]
+            self.name = jsonPlace["name"]
+            self.geo = create_geo_dict(jsonPlace["geometry"]["location"]["lat"], jsonPlace["geometry"]["location"]["lng"])
+            if "rating" in jsonPlace:
+                self.rating = jsonPlace["rating"]
+            self.formatted_address = jsonPlace["formatted_address"]
+            if "opening_hours" in jsonPlace:
+                self.openNow = jsonPlace["opening_hours"]["open_now"]
+            if "photos" in jsonPlace:
+                self.photos = self.__parsephotos(jsonPlace["photos"])
+            self.categories = jsonPlace["types"]
 
     def __parsephotos(self, dictPic):
         photos = []
@@ -34,16 +34,16 @@ class FullPlace(MinimalPlace):
     openingHours = None
     favorite = None
 
-    def __init__(self, dict):
-        super(FullPlace, self).__init__(dict)
-        if "address_components" in dict:
-            self.address = Address(array=dict)
-        if "international_phone_number" in dict:
-            self.phone_number = dict["international_phone_number"]
-        if "website" in dict:
-            self.website = dict["website"]
-        if "opening_hours" in dict:
-            self.openingHours = dict["opening_hours"]["weekday_text"]
+    def __init__(self, jsonPlace):
+        super(FullPlace, self).__init__(jsonPlace)
+        if "address_components" in jsonPlace:
+            self.address = Address(array=jsonPlace)
+        if "international_phone_number" in jsonPlace:
+            self.phone_number = jsonPlace["international_phone_number"]
+        if "website" in jsonPlace:
+            self.website = jsonPlace["website"]
+        if "opening_hours" in jsonPlace:
+            self.openingHours = jsonPlace["opening_hours"]["weekday_text"]
 
 
 
@@ -59,12 +59,12 @@ class UserPlace:
     favorite = True
     review_list = []
 
-    def __init__(self, dict):
-        self.placeId = dict["place_id"]
-        self.averageStar = dict["rating"]
-        self.name = dict["name"]
-        self.geo["latitude"] = dict["location"]["lat"]
-        self.geo["longitude"] = dict["location"]["lng"]
+    def __init__(self, json_array):
+        self.placeId = json_array["place_id"]
+        self.averageStar = json_array["rating"]
+        self.name = json_array["name"]
+        self.geo["latitude"] = json_array["location"]["lat"]
+        self.geo["longitude"] = json_array["location"]["lng"]
 
 
 class Address:
