@@ -1,12 +1,11 @@
 # coding=utf-8
 import json
-from pprint import pprint
-from unittest import skip
-
 from datetime import datetime
+from pprint import pprint
+
 from django.test import TestCase
+from rest_framework.authtoken.models import Token
 from rest_framework.renderers import JSONRenderer
-from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
 from BestPlaces.dbModels import Visit
@@ -14,7 +13,6 @@ from BestPlaces.outputModels import Address
 from BestPlaces.placesApiHandler import PlacesApiHandler
 from BestPlaces.serializers import MinimalPlaceSerializer
 from models import User
-from rest_framework.authtoken.models import Token
 
 
 class PlacesTest(TestCase):

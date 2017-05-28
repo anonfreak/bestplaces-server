@@ -1,6 +1,3 @@
-import re
-
-
 def create_geo_dict(latitude, longitude):
     return {"latitude": latitude, "longitude": longitude}
 

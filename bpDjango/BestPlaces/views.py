@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.http import Http404, JsonResponse
-from rest_framework import generics, status, authentication, permissions
+from django.http import JsonResponse
+from rest_framework import authentication, permissions
 from rest_framework import mixins
-from rest_framework import viewsets
-from rest_framework.decorators import api_view
-from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
@@ -14,7 +11,7 @@ from BestPlaces.dbModels import Visit
 from BestPlaces.models import User
 from BestPlaces.outputModels import create_geo_dict
 from BestPlaces.placesApiHandler import PlacesApiHandler
-from BestPlaces.serializers import UserSerializer, PlaceSerializer, VisitSerializer, MinimalPlaceSerializer, \
+from BestPlaces.serializers import UserSerializer, VisitSerializer, MinimalPlaceSerializer, \
     FullPlaceSerializer
 
 

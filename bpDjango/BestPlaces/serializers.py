@@ -1,8 +1,8 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from BestPlaces.dbModels import Place, Visit
 from BestPlaces.models import User
-from django.contrib.auth import get_user_model
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
