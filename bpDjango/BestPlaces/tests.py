@@ -50,7 +50,6 @@ class PlacesTest(TestCase):
         self.assertEqual(addressJson.zipCode, address.zipCode)
 
 
-
 class APITestCaseUser(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user("test", "test@test.de", "Test", "Test", "Test", "Test")
