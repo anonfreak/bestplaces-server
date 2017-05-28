@@ -2,6 +2,13 @@ def create_geo_dict(latitude, longitude):
     return {"latitude": latitude, "longitude": longitude}
 
 
+def parsephotos(dictPic):
+    photos = []
+    for photo in dictPic:
+        photos.append("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + str(photo["photo_reference"]) + "&key=AIzaSyCk-JFceB-S7QIakQTajh1O7fMGkob7pO0")
+    return photos
+
+
 class MinimalPlace(object):
     photos = None
     openNow = None
@@ -17,14 +24,8 @@ class MinimalPlace(object):
             if "opening_hours" in jsonPlace:
                 self.openNow = jsonPlace["opening_hours"]["open_now"]
             if "photos" in jsonPlace:
-                self.photos = self.__parsephotos(jsonPlace["photos"])
+                self.photos = parsephotos(jsonPlace["photos"])
             self.categories = jsonPlace["types"]
-
-    def __parsephotos(self, dictPic):
-        photos = []
-        for photo in dictPic:
-            photos.append("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + str(photo["photo_reference"]) + "&key=AIzaSyCk-JFceB-S7QIakQTajh1O7fMGkob7pO0")
-        return photos
 
 
 class FullPlace(MinimalPlace):
