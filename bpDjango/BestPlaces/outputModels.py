@@ -70,7 +70,7 @@ class UserPlace:
 
 class Address:
     street =""
-    streetNumber = ""
+    streetNumber = 0
     town = ""
     zipCode = 0
 
