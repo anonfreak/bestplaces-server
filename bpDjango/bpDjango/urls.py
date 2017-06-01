@@ -19,7 +19,7 @@ from rest_framework import routers
 from rest_framework.authtoken import views as rest_views
 
 from BestPlaces import views as own_views
-from BestPlaces.views import SearchView, PlacesView
+from BestPlaces.views import SearchView, PlacesView, get_google_api_key
 
 router = routers.DefaultRouter()
 router.register(r'user', own_views.UserViewSet)
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-token-auth/', rest_views.obtain_auth_token),
     url(r'^place/search$', SearchView.as_view()),
-    url(r'^place/(?P<placeId>.+)/$', PlacesView.as_view())
+    url(r'^place/(?P<placeId>.+)/$', PlacesView.as_view()),
+    url(r'^google-token/', get_google_api_key)
 ]
 
