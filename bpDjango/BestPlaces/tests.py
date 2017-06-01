@@ -100,7 +100,19 @@ class VisitTest(APITestCaseUser):
         response = self.client.post("/visit/", data=visit, format="json")
         self.assertEqual(response.status_code, 201)
 
+    def test_get_specific_visit(self):
+        visit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(),
+                                     money=10)
+        response = self.client.get("/visit/"+str(visit.visitid)+"/")
+        self.assertEqual(response.status_code, 200)
 
+    def test_get_all_visits_of_user(self):
+        Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
+        Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0IHYk", visittime=datetime.now(), money=30)
+        Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
+        response = self.client.get("/visit?username=test")
+        array = json.loads(response.body)
+        self.assertEqual(200, response.status_code)
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):
