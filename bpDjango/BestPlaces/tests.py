@@ -111,7 +111,6 @@ class VisitTest(APITestCaseUser):
         Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0IHYk", visittime=datetime.now(), money=30)
         Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
         response = self.client.get("/visit?username=test")
-        array = json.loads(response.body)
         self.assertEqual(200, response.status_code)
 
 class UserTest(APITestCaseUser):
