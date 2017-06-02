@@ -59,7 +59,7 @@ class AddressSerializer(serializers.Serializer):
     street = serializers.CharField()
     streetNumber = serializers.IntegerField()
     town = serializers.CharField()
-    zipCode = serializers.IntegerField()
+    zipCode = serializers.CharField()
 
     def create(self, validated_data):
         pass

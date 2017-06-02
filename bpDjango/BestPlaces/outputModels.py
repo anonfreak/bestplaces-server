@@ -72,7 +72,7 @@ class Address:
     street =""
     streetNumber = 0
     town = ""
-    zipCode = 0
+    zipCode = ""
 
     def __init__(self, street=None, house_number=None, town=None, zip_code=None, array=None):
         if array is None:
@@ -89,7 +89,7 @@ class Address:
                 if "street_number" in component["types"]:
                     self.streetNumber = int(component["long_name"])
                 if "postal_code" in component["types"]:
-                    self.zipCode = int(component["long_name"])
+                    self.zipCode = component["long_name"]
 
 class Review:
     starts = 0
