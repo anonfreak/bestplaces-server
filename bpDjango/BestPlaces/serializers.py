@@ -79,3 +79,13 @@ class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visit
         fields = ('visitid', 'user', 'place', 'visittime', 'money')
+
+
+class GoogleTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
