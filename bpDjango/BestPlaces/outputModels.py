@@ -79,7 +79,7 @@ class Address:
             self.street = street
             self.streetNumber = int(house_number)
             self.town = town
-            self.zipCode = int(zip_code)
+            self.zipCode = str(zip_code)
         else:
             for component in array["address_components"]:
                 if "route" in component["types"]:
@@ -89,7 +89,7 @@ class Address:
                 if "street_number" in component["types"]:
                     self.streetNumber = int(component["long_name"])
                 if "postal_code" in component["types"]:
-                    self.zipCode = component["long_name"]
+                    self.zipCode = str(component["long_name"])
 
 class Review:
     starts = 0
