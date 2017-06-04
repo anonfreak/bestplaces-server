@@ -3,6 +3,7 @@
 from django.http import JsonResponse
 from rest_framework import authentication, permissions
 from rest_framework import mixins
+from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
@@ -26,12 +27,28 @@ class UserViewSet(mixins.CreateModelMixin,
 
 class VisitViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
                    GenericViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get_queryset(self):
+        return Visit.objects.all().filter(user=self.request.user)
+
+# def list(self, request, *args, **kwargs):
+#     user = self.request.user
+#     visits = Visit.objects.filter(user=user)
+#     serializer = VisitSerializer(visits, many=True)
+#     if serializer.validate():
+#         return Response(serializer.data)
+#     else:
+#         return Response(status=404)
+
+
 
 
 class PlacesView(APIView):
