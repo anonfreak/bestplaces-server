@@ -28,6 +28,7 @@ class Visit(models.Model):
     user = models.ForeignKey(User, db_column="user", on_delete=models.CASCADE, default="")
     place = models.CharField(db_column="place", max_length=256, null=False, default="")
     visittime = models.DateTimeField(db_column="visitime")
+    notes = models.TextField(blank=True, null=True)
     duration = models.DurationField(db_column="duration", null=True)
     money = models.DecimalField(db_column="money", max_digits=5, decimal_places=2, blank=True, null=True)
 
