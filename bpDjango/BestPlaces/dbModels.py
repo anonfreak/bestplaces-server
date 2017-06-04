@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django_mysql.models import JSONField
+
 from BestPlaces.models import User
 from bpDjango import settings
 

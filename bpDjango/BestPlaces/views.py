@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework import authentication, permissions
 from rest_framework import mixins
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
@@ -13,6 +16,12 @@ from BestPlaces.outputModels import create_geo_dict
 from BestPlaces.placesApiHandler import PlacesApiHandler
 from BestPlaces.serializers import UserSerializer, VisitSerializer, MinimalPlaceSerializer, \
     FullPlaceSerializer
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def get_google_api_key(request):
+    return HttpResponse(content=os.environ["PLACES_API_KEY"], content_type="text/plain")
 
 
 class UserViewSet(mixins.CreateModelMixin,
