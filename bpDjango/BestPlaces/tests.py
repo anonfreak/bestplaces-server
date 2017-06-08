@@ -118,9 +118,9 @@ class VisitTest(APITestCaseUser):
         visit = {
             'money': 30,
         }
-        response = self.client.patch("/visit/"+ genVisit.visitid + "/", data=visit, format="json")
+        response = self.client.patch("/visit/"+ str(genVisit.visitid) + "/", data=visit, format="json")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["money"], 30)
+        self.assertEqual(float(response.data["money"]), 30.00)
 
 class UserTest(APITestCaseUser):
     def test_create_User(self):

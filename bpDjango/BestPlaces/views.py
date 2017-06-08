@@ -36,6 +36,7 @@ class UserViewSet(mixins.CreateModelMixin,
 class VisitViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.ListModelMixin,
+                   mixins.UpdateModelMixin,
                    GenericViewSet):
     """
     API endpoint that allows users to be viewed or edited.
