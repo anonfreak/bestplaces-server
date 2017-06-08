@@ -113,6 +113,15 @@ class VisitTest(APITestCaseUser):
         response = self.client.get("/visit/")
         self.assertEqual(200, response.status_code)
 
+    def test_edit_visit(self):
+        genVisit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=10)
+        visit = {
+            'money': 30,
+        }
+        response = self.client.patch("/visit/"+ genVisit.visitid + "/", data=visit, format="json")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["money"], 30)
+
 class UserTest(APITestCaseUser):
     def test_create_User(self):
         user = {
