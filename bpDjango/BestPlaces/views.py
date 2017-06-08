@@ -40,12 +40,12 @@ class VisitViewSet(mixins.CreateModelMixin,
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Visit.objects.all()
+    queryset = Visit.objects.order_by('visittime')
     serializer_class = VisitSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
-        return Visit.objects.all().filter(user=self.request.user)
+        return Visit.objects.all().filter(user=self.request.user).order_by('-visittime')
 
 # def list(self, request, *args, **kwargs):
 #     user = self.request.user
