@@ -127,11 +127,13 @@ class VisitTest(APITestCaseUser):
         self.assertEqual(visit.money, 200000.0)
 
     def test_delete_visit(self):
-        visits = Visit.objects.get(user="test")
+        visit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(),
+                                     money=10)
+        visits = Visit.objects.filter(user=self.user)
         count = len(visits)
         response = self.client.delete("/visit/" + str(visits[0].visitid) + "/")
-        visits = Visit.objects.get(user="test")
-        self.assertEqual(response.status_code, 200)
+        visits = Visit.objects.filter(user=self.user)
+        self.assertEqual(response.status_code, 204)
         self.assertEqual(len(visits), count-1)
 
 
