@@ -29,7 +29,7 @@ class Visit(models.Model):
     place = models.CharField(db_column="place", max_length=256, null=False, default="")
     visittime = models.DateTimeField(db_column="visitime", null=True)
     notes = models.TextField(blank=True, null=True)
-    money = models.DecimalField(db_column="money", max_digits=5, decimal_places=2, blank=True, null=True)
+    money = models.DecimalField(db_column="money", max_digits=20, decimal_places=2, blank=True, null=True)
 
     class Meta:
         managed = True

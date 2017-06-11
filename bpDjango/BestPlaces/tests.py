@@ -122,6 +122,10 @@ class VisitTest(APITestCaseUser):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(float(response.data["money"]), 30.00)
 
+    def test_more_digits(self):
+        visit = Visit.objects.create(user=self.user, place="ChIJlTaoHkgGl0cRxoI4A0I-HYk", visittime=datetime.now(), money=200000.0)
+        self.assertEqual(visit.money, 200000.0)
+
 class UserTest(APITestCaseUser):
     def test_create_User(self):
         user = {
