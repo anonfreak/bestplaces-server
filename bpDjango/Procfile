@@ -1,1 +1,1 @@
-web: gunicorn BestPlaces.wsgi --log-file -
+web: gunicorn --pythonpath django bpDjango.wsgi --log-file -
