@@ -22,3 +22,13 @@ script:
   - coverage run --source=./ manage.py test
 after_success:
   - coveralls
+before_deploy:
+  - cd bpDjango/
+deploy:
+  provider: heroku
+  api_key:
+    secure: ${env.HEROKU_API_KEY}
+  app: best-place
+  on:
+	- heroku
+	- master
