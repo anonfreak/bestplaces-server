@@ -23,9 +23,10 @@ script:
 after_success:
   - coveralls
 before_deploy:
-  - cd bpDjango/
+  - ls
 deploy:
   - provider: heroku
+    skip_cleanup: false
     api_key:
       secure: "6YCKh2+zkQJ2YOZKC/tj6Q30B3DHSqG4fF3oH9OxRveSyTXM69HcQc1FUY93gpuOusc3Mbg/ZKGds5HFHfJHmcbAlhvD/IXo8RWXcaeqnOsVAIoHMgdEAz7jazsiuxFy2V8iNG8/U7GuohM1nqWM5lMCMJhQr6TJELNgEWYF1YqJhOhEvM+vWQYcHZEINtVwLerAxCddwBkWWtlUZnNJ0e6OfZeoYhftFS4rX3eChaBg3ZiggduUEL2SiEq9R5fSmsxiP6BP7hQ/PxWBQ7G5Low30wRhLUcZn+Swf6ZiTKFOPR3blca9gMkI2yZJ+aViCZOjlLsX9ccXXhLmZeOFZixzHwHf6wehWys6+1JcOTZd0RB22MtviDqYo5Rgcc3N+7XFXh9Msn16irXO/e2f7FUdpOybrza7dCSIkyywxOqs2MQwDKmGue2PezMVbcp5YkMFeDmJle6HlsPH0mAD/FSIhTt3VGeQSI4/xUHVHKB4RE2IxG82bkK2AD1433Vgnu3L1/Bffh2TTnnHWzjqrBnKKZ7MClLrIEAv7ZodROOeOefi94Jxn5z0GVMsYif+6vq6sDXSF+kU7uA4EzIzdxrhtY8bP0sCyDA6dHM0WYZ4GmfmoXTDQ4QsJ8iAV3usPhigTVvig7O9XjRTqI4qMcCaewQSAul3eNRTvLnEx8c="
     app: best-place
@@ -34,5 +35,6 @@ deploy:
     api_key: 
       secure: "6YCKh2+zkQJ2YOZKC/tj6Q30B3DHSqG4fF3oH9OxRveSyTXM69HcQc1FUY93gpuOusc3Mbg/ZKGds5HFHfJHmcbAlhvD/IXo8RWXcaeqnOsVAIoHMgdEAz7jazsiuxFy2V8iNG8/U7GuohM1nqWM5lMCMJhQr6TJELNgEWYF1YqJhOhEvM+vWQYcHZEINtVwLerAxCddwBkWWtlUZnNJ0e6OfZeoYhftFS4rX3eChaBg3ZiggduUEL2SiEq9R5fSmsxiP6BP7hQ/PxWBQ7G5Low30wRhLUcZn+Swf6ZiTKFOPR3blca9gMkI2yZJ+aViCZOjlLsX9ccXXhLmZeOFZixzHwHf6wehWys6+1JcOTZd0RB22MtviDqYo5Rgcc3N+7XFXh9Msn16irXO/e2f7FUdpOybrza7dCSIkyywxOqs2MQwDKmGue2PezMVbcp5YkMFeDmJle6HlsPH0mAD/FSIhTt3VGeQSI4/xUHVHKB4RE2IxG82bkK2AD1433Vgnu3L1/Bffh2TTnnHWzjqrBnKKZ7MClLrIEAv7ZodROOeOefi94Jxn5z0GVMsYif+6vq6sDXSF+kU7uA4EzIzdxrhtY8bP0sCyDA6dHM0WYZ4GmfmoXTDQ4QsJ8iAV3usPhigTVvig7O9XjRTqI4qMcCaewQSAul3eNRTvLnEx8c="
     app: best-place
+    skip_cleanup: false
     on: heroku
 
