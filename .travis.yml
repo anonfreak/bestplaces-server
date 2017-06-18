@@ -25,10 +25,13 @@ after_success:
 before_deploy:
   - cd bpDjango/
 deploy:
-  provider: heroku
-  api_key:
+  - provider: heroku
+    api_key: secure: ${env.HEROKU_API_KEY}
+    app: best-place
+    on: master
+  - provider: heroku
+    api_key:
     secure: ${env.HEROKU_API_KEY}
-  app: best-place
-  on:
-	- heroku
-	- master
+    app: best-place
+    on: heroku
+

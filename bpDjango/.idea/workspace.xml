@@ -5,9 +5,7 @@
     <list id="d612290b-7675-40da-b0a0-258573a2e0b9" name="BESTP-13 Implement log-in interface" comment="Fixed bug on removing user" />
     <list id="a1303ecd-ca5d-4ea0-a2f9-a51e274c5af2" name="BESTP-123 Improve Metrics Server" comment="BESTP-123 Improve Metrics Server&#10;Removed unused imports" />
     <list id="717b7310-5e03-4475-b166-da337dc5a0e0" name="BESTP-138 Write Tests to edit visits" comment="BESTP-138 Write Tests to edit visits" />
-    <list default="true" id="ff3e77fb-3752-46f5-9faf-fc4e5c1f29d9" name="BESTP-147 Add possibility to delete Visit" comment="Added duration and fixed several bugs by migrating the database">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile" afterPath="$PROJECT_DIR$/Procfile" />
-    </list>
+    <list default="true" id="ff3e77fb-3752-46f5-9faf-fc4e5c1f29d9" name="BESTP-147 Add possibility to delete Visit" comment="Added duration and fixed several bugs by migrating the database" />
     <ignored path="bpDjango.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
