@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django_mysql',
     'rest_framework',
     'BestPlaces',
@@ -143,7 +144,12 @@ AUTH_USER_MODEL = 'BestPlaces.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
     speicher = DATABASES["test"]
