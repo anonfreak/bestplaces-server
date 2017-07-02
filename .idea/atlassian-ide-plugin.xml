@@ -2,8 +2,8 @@
   <project-configuration id="1">
     <servers id="2">
       <jira id="3">
-        <server-id id="4">7d47e2a0-3281-4d02-a837-1bfcbd820cde</server-id>
-        <name>DHBW JIRA</name>
+        <server-id id="4">4ad15d47-95ee-43a6-977e-503dd9437919</server-id>
+        <name>JIRA</name>
         <url>http://193.196.7.27:8080</url>
         <shared>false</shared>
         <useSessionCookies>false</useSessionCookies>

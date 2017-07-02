@@ -15,8 +15,6 @@ install:
   - pip install python-google-places
   - pip install googlemaps
   - pip install coveralls
-# command to run tests
-before_script: cd bpDjango/
 script:
   - python manage.py test
   - coverage run --source=./ manage.py test
