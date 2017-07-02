@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath django bpDjango/bpDjango.wsgi --log-file -
+web: gunicorn --pythonpath django bpDjango.bpDjango.wsgi --log-file -
